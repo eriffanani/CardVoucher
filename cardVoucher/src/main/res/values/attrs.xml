@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--<declare-styleable name="CardVoucher">
+        <attr name="android:text"/>
+        <attr name="readMoreMaxLines" format="integer"/>
+        <attr name="collapsed" format="boolean"/>
+        <attr name="expandText" format="string"/>
+        <attr name="expandTextColor" format="reference|color"/>
+        <attr name="expandTextUnderline" format="boolean"/>
+        <attr name="expandTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="collapseText" format="string"/>
+        <attr name="collapseTextColor" format="reference|color"/>
+        <attr name="collapseTextUnderline" format="boolean"/>
+        <attr name="collapseTextStyle">
+            <flag name="normal" value="0" />
+            <flag name="bold" value="1" />
+            <flag name="italic" value="2" />
+        </attr>
+        <attr name="android:animationDuration"/>
+        <attr name="actionClickColor" format="reference|color"/>
+        <attr name="ellipsisType">
+            <flag name="dots" value="0"/>
+            <flag name="none" value="1"/>
+        </attr>
+    </declare-styleable>-->
+
+    <declare-styleable name="CardVoucher">
+        <attr name="edgeCount" format="integer"/>
+        <attr name="edgePosition">
+            <flag name="left" value="1" />
+            <flag name="top" value="2" />
+            <flag name="right" value="4" />
+            <flag name="bottom" value="7" />
+        </attr>
+        <attr name="edgeType">
+            <flag name="triangle" value="0" />
+            <flag name="circle" value="1" />
+        </attr>
+        <attr name="android:backdropColor" />
+        <attr name="lineColor" format="reference|color"/>
+        <attr name="lineDotted">
+            <flag name="none" value="0" />
+            <flag name="vertical" value="1" />
+            <flag name="horizontal" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

@@ -2,5 +2,6 @@
 <resources>
 
     <color name="shadow_color">#e3e3e3</color>
+    <color name="line_color">#DCDCDC</color>
 
 </resources>

@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:background="#F5F5F5"
+    android:background="#EFF3F6"
     tools:context=".MainActivity">
 
     <com.erif.cardvoucher.CardVoucher
         android:layout_width="match_parent"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_height="150dp" />
+        app:edgeCount="10"
+        android:layout_height="130dp"
+        app:lineDotted="vertical"/>
 
     <com.erif.cardvoucher.CardRinggik
         android:layout_width="match_parent"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_height="150dp"
+        android:layout_height="130dp"
         android:layout_marginTop="25dp"/>
 
 </LinearLayout>

@@ -2,5 +2,8 @@
 <resources>
 
     <dimen name="elevation_normal">2dp</dimen>
+    <dimen name="line_size">1dp</dimen>
+    <dimen name="line_height">8dp</dimen>
+    <dimen name="line_space">5dp</dimen>
 
 </resources>
