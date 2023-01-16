@@ -5,7 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -14,25 +16,24 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardVoucher extends View {
+public class CardRinggik extends View {
 
     private Paint paint;
     private Path path;
     private float shadowRadius;
-    private final List<Float> edgesYInside = new ArrayList<>();
-    private final List<Float> edgesYOutside = new ArrayList<>();
+    private RectF rectF;
 
-    public CardVoucher(Context context) {
+    public CardRinggik(Context context) {
         super(context);
         init(context);
     }
 
-    public CardVoucher(Context context, @Nullable AttributeSet attrs) {
+    public CardRinggik(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public CardVoucher(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CardRinggik(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -45,57 +46,58 @@ public class CardVoucher extends View {
         float dy = shadowRadius / 2f;
         int shadowColor = ContextCompat.getColor(getContext(), R.color.shadow_color);
         paint.setShadowLayer(shadowRadius, 0f, dy, shadowColor);
+
         path = new Path();
+        rectF = new RectF();
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         int edgeCount = 8;
+        float spaceSize = 0.4f;
+        float available = 1f - spaceSize;
+
         float left = 0f + (shadowRadius / 1.8f);
         float top = 0f + (shadowRadius / 1.8f);
         float right = (left + getWidth()) - (shadowRadius * 1.8f);
         float bottom = (top + getHeight()) - (shadowRadius * 1.8f);
 
-        float edgeSize = (bottom - shadowRadius) / edgeCount;
+        path.reset();
 
-        path.moveTo(left, top); // Top Left
+        float getEdgeOriginalSize = bottom / edgeCount;
+        float space = getEdgeOriginalSize * spaceSize;
 
-        edgesYInside.clear();
-        float currentYInside = top;
-        for (int i=0; i<edgeCount; i++) {
-            if (i == 0) {
-                currentYInside = currentYInside + (edgeSize / 2f);
-            } else {
-                currentYInside = currentYInside + edgeSize;
-            }
-            edgesYInside.add(currentYInside);
-        }
+        float newHeight = (bottom - space) / edgeCount;
+        float edgeSize = newHeight * available;
 
-        edgesYOutside.clear();
-        float currentYOutside = top;
-        for (int i=0; i<edgeCount - 1; i++) {
-            currentYOutside = currentYOutside + edgeSize;
-            edgesYOutside.add(currentYOutside);
-        }
+        path.moveTo(left, top); // Start point on top left
 
-        float xInside = left + (edgeSize / 1.75f);
-        for (int i=0; i<edgeCount; i++) {
-            if (i < edgeCount - 1) {
-                // Inside
-                path.lineTo(xInside, edgesYInside.get(i));
-                // Outside
-                path.lineTo(left, edgesYOutside.get(i));
-            } else {
-                // Inside
-                path.lineTo(xInside, edgesYInside.get(i));
+        float edgeLeft = left - (edgeSize / 2f);
+        float edgeRight = edgeLeft + edgeSize;
+        float currentHeight = 0f;
+        for (int i=0; i<=edgeCount; i++) {
+            currentHeight += space;
+            path.lineTo(left, currentHeight);
+            if (i < edgeCount) {
+                float edgeTop = currentHeight;
+                currentHeight += edgeSize;
+                rectF.set(edgeLeft, edgeTop, edgeRight, currentHeight);
+                path.arcTo(rectF, -90f, 270f);
+                path.lineTo(left, currentHeight);
             }
         }
-        path.lineTo(left, bottom); // Bottom left
+
+        path.lineTo(left, bottom); // Bottom Left
         path.lineTo(right, bottom); // Bottom Right
         path.lineTo(right, top); // Top Right
         path.close();
         canvas.drawPath(path, paint);
+    }
+
+    private float toFloat(int value) {
+        return (float) value;
     }
 
 }
